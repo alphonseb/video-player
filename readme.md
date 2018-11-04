@@ -11,15 +11,15 @@ Initialization :
 ----------------
 In your HTML:
 - Add a container for your video player
-```
+```html
 <div class="container"></div>
 ```
 - Add the Player.js file
-```
+```html
 <script src="Player.js"></script>
 ```
 - Initialize the player
-```
+```html
 <script>
     const player = new Player({
         title: //Title of your video,
@@ -39,7 +39,7 @@ In your HTML:
 
 Options :
 ---------
-```
+```javascript
 {
     title: //Title of your video,
     attributes:{
