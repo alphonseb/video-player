@@ -16,6 +16,9 @@ body {
   body li {
     list-style: none; }
 
+h1, p {
+  text-align: center; }
+
 .container {
   width: 800px;
   position: absolute;
