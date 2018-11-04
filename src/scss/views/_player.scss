@@ -1,20 +1,67 @@
 .player{
-    width: 80vw;
+    button{
+        border: none;
+        box-shadow: none;
+        appearance: none;
+        background: none;
+    }
+    width: 100%;
     display: flex;
     justify-content: center;
     position: relative;
     &>video{
         width: 100%;
-        height: auto;
+        height: 100%;
+    }
+    &__titlebar{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        background-image: linear-gradient(to bottom, $black, transparent);
+        font-size: 3rem;
+        color: $white;
+        margin: 0;
+        padding: 2rem;
+        transition: opacity .3s;
+        will-change: opacity;
+    }
+    &__state-icon{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        color: $white;
+        font-size: 4rem;
+        opacity: 0;
+        &.showing{
+            animation: fade-out .7s linear forwards;
+            @keyframes fade-out {
+                from{ opacity: 1; }
+                50%{ opacity: 1; }
+                to{ opacity: 0; }
+            }
+        }
     }
     &__seekbar{
         position: absolute;
+        z-index: 5;
         bottom: 40px;
         width: 100%;
-        height: 30px;
-        outline: solid 1px green;
+        height: 10px;
+        transition: transform .1s, opacity .3s;
+        will-change: transform;
+        transform-origin: bottom;
+        transform: scaleY(0.333);
+        background-color: rgba(0, 132, 255, 0.5);
+        cursor: pointer;
         &:hover{
+            transform: scaleY(1);
             .player__seekbar__thumbnail{
+                opacity: 1;
+            }
+            .dragger{
                 opacity: 1;
             }
         }
@@ -24,41 +71,99 @@
             opacity: 0;
             transition: opacity .2s;
             will-change: opacity;
+            position: absolute;
+            left: -80px;
+            bottom: 5px;
         }
         .filler{
             width: 100%;
-            height: 50%;
-            background: green;
+            height: 100%;
+            background: rgba(0, 132, 255, 1);
             transform-origin: left;
         }
+        .dragger{
+            position: absolute;
+            left: -10px;
+            top: -5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: $white;
+            opacity: 0;
+        }
+
     }
     &__toolbar{
         position: absolute;
-        bottom: 10px;
+        z-index: 1;
+        bottom: 0px;
+        height: 40px;
         width: 100%;
         display: flex;
+        align-items: center;
+        background-color: rgba(0,0,0,0.5);
+        color: $white;
+        padding: 1rem;
+        transition: opacity .3s;
+        will-change: opacity;
+        & > *{
+            margin-right: 2rem;
+        }
+        button{
+            color: $white;
+            font-size: 2rem;
+            outline: none;
+            cursor: pointer;
+            transition: transform .2s;
+            will-change: transform;
+            &:not(.player__toolbar__fullscreen-button):hover{
+                transform: scale(1.2)
+            }
+        }
+        &__time-display{
+            width: 105px;
+        }
         &__volume-container{
+            display: flex;
+            align-items: center;
+            .player__toolbar__mute-button{
+                margin-right: 1rem;
+                width: 35px;
+            }
             &__volume-slider{
                 width: 100px;
-                height: 10px;
+                height: 5px;
+                position: relative;
+                transition: transform .2s;
+                background-color: rgba(255,255,255,0.5);
+                cursor: pointer;
                 .filler{
                     width: 100%;
                     height: 100%;
-                    background-color: red;
+                    background-color: $white;
                     transform-origin: left;
                     transition: transform .3s;
                     position: relative;
-                    &::after{
-                        content: '';
-                        position: absolute;
-                        right: -10px;
-                        top: -5px;
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 100%;
-                        background-color: red;
-                    }
                 }
+                .dragger{
+                    position: absolute;
+                    left: -5px;
+                    top: -2.5px;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 100%;
+                    background-color: $white;
+                }
+            }
+        }
+        &__fullscreen-button{
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            margin-right: 0;
+            &:hover{
+                transform: translateY(-50%) scale(1.2);
             }
         }
     }
