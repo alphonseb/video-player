@@ -2,7 +2,7 @@ class Player{
 
     constructor(parameters){
         this.video = {
-            title: parameters.title,
+            title: parameters.title !== undefined ? parameters.title : '',
             attributes: {
                 src: parameters.attributes.src,
                 muted: parameters.attributes.muted,
@@ -13,10 +13,11 @@ class Player{
                 class: parameters.attributes.class
             }
         }
-        this.$container = document.querySelector(parameters.container)
+        this.$container = document.querySelector(parameters.container) ? document.querySelector(parameters.container) : document.body
         this.controls = {}
         this.seekbar = {}
         this.isFullScreen = false
+        this.keyboardControls = parameters.keyboard !== undefined ? parameters.keyboard : false 
         this.init()   
     }
 
@@ -24,7 +25,9 @@ class Player{
         this.buildPlayer()
         this.buildToolbar()
         this.initControls()
-        this.initKeyboardControls()
+        if (this.keyboardControls) {
+            this.initKeyboardControls()
+        }
     }
     
     buildPlayer(){

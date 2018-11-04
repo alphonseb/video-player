@@ -7,5 +7,6 @@ const player = new Player({
         poster: "videos/poster.png",
         class: "video-player"
     },
+    keyboard: true,
     container: ".container"
 })

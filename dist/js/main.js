@@ -9,7 +9,7 @@ var Player = function () {
         _classCallCheck(this, Player);
 
         this.video = {
-            title: parameters.title,
+            title: parameters.title !== undefined ? parameters.title : '',
             attributes: {
                 src: parameters.attributes.src,
                 muted: parameters.attributes.muted,
@@ -20,10 +20,11 @@ var Player = function () {
                 class: parameters.attributes.class
             }
         };
-        this.$container = document.querySelector(parameters.container);
+        this.$container = document.querySelector(parameters.container) ? document.querySelector(parameters.container) : document.body;
         this.controls = {};
         this.seekbar = {};
         this.isFullScreen = false;
+        this.keyboardControls = parameters.keyboard !== undefined ? parameters.keyboard : false;
         this.init();
     }
 
@@ -33,7 +34,9 @@ var Player = function () {
             this.buildPlayer();
             this.buildToolbar();
             this.initControls();
-            this.initKeyboardControls();
+            if (this.keyboardControls) {
+                this.initKeyboardControls();
+            }
         }
     }, {
         key: 'buildPlayer',
@@ -484,6 +487,7 @@ var player = new Player({
         poster: "videos/poster.png",
         class: "video-player"
     },
+    keyboard: true,
     container: ".container"
 });
 // const textInput = document.querySelector('#playlistName')
